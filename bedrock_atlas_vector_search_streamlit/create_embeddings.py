@@ -5,9 +5,7 @@ from utils import bedrock
 from langchain.embeddings import BedrockEmbeddings
 
 # defind the bedrock client
-boto3_bedrock = bedrock.get_bedrock_client(
-    region="us-east-1"
-)
+boto3_bedrock = bedrock.get_bedrock_client()
 mongo_uri = os.environ.get('ATLAS_URI')
 # Connect to the MongoDB database
 client = pymongo.MongoClient(mongo_uri)
