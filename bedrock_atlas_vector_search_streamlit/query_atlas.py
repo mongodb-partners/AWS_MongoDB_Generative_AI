@@ -3,6 +3,7 @@ import os
 import pymongo
 from utils import bedrock
 from langchain.embeddings import BedrockEmbeddings
+from utils import aws_utils
 
 embedding_model_id = "amazon.titan-embed-text-v1"
 boto3_bedrock = bedrock.get_bedrock_client()
@@ -56,9 +57,13 @@ def mdb_query(mdbclient, query, kcount):
     # #return [Document(page_content = d["page_content"], metadata = d["metadata"]) for d in docs]
     return llm_input_text
 
-mongo_uri = os.environ.get('ATLAS_URI')
+print("started...")
+# mongo_uri = os.environ.get('ATLAS_URI')
+mongo_uri = aws_utils.get_secret("workshop/atlas_secret")
+print("got credentials...")
 # Connect to the MongoDB database
 client = pymongo.MongoClient(mongo_uri)
+print("connected to mongoDB...")
 db = client["sample_mflix"]
 collection = db["movies"]
 
@@ -66,3 +71,5 @@ collection = db["movies"]
 query_string = "traveling romantic story"
 
 res = mdb_query(client, query_string, 5)
+
+print("finished!")
