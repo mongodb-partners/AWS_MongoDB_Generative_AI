@@ -3,10 +3,11 @@ import os
 import pymongo
 from utils import bedrock
 from langchain.embeddings import BedrockEmbeddings
+from utils import aws_utils
 
 # defind the bedrock client
 boto3_bedrock = bedrock.get_bedrock_client()
-mongo_uri = os.environ.get('ATLAS_URI')
+mongo_uri = aws_utils.get_secret("workshop/atlas_secret")
 # Connect to the MongoDB database
 client = pymongo.MongoClient(mongo_uri)
 db = client["sample_mflix"]
