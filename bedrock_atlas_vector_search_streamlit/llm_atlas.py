@@ -1,7 +1,5 @@
-import streamlit as st
-import random
-import time
 import boto3
+import os
 import pymongo
 from utils import bedrock
 from langchain.embeddings import BedrockEmbeddings
@@ -61,70 +59,42 @@ def mdb_query(mdbclient, query, kcount):
     return llm_input_text
 
 print("started...")
+# mongo_uri = os.environ.get('ATLAS_URI')
 mongo_uri = aws_utils.get_secret("workshop/atlas_secret")
 print("got credentials...")
-
 # Connect to the MongoDB database
 client = pymongo.MongoClient(mongo_uri)
 print("connected to mongoDB...")
 db = client["sample_mflix"]
 collection = db["movies"]
 
-# Streamed response emulator
-def response_generator(query_string):
-    res = mdb_query(client, query_string, 5)
+# query_string = "traveling stars manual"
+query_string = "traveling romantic story"
 
-    print("finished search...")
+res = mdb_query(client, query_string, 5)
 
-    bedrock = boto3.client('bedrock-runtime')
+print("finished search...")
 
-    # prompt = f"""Human: Create a single paragraph of a movie description based on the descriptions below. Add additional details if needed.  Rephrase as much as possible.
-    prompt = f"""Human: Create a mashup script based on the descriptions below.  Create a single paragraph description.
-    {res} 
-    \n\nBot: Let me create the script for you...
-    """
-    print(f"constructed prompt: {prompt}")
+bedrock = boto3.client('bedrock-runtime')
 
-    body = json.dumps({
-    "inputText": prompt,
-    })
+prompt = f"""Human: Create a mashup script based on the descriptions below.  Create a single paragraph description.
+{res} 
+\n\nBot: Let me check create the script for you...
+"""
+print(f"constructed prompt: {prompt}")
 
-    # invoke titan model
-    response = bedrock.invoke_model(
-    modelId="amazon.titan-text-express-v1",
-    body=body
-    )
+body = json.dumps({
+  "inputText": prompt,
+})
 
-    response_body = json.loads(response['body'].read())
-    outputText = response_body["results"][0]['outputText']
-    print(outputText)
+# invoke titan model
+response = bedrock.invoke_model(
+  modelId="amazon.titan-text-express-v1",
+  body=body
+)
 
-    for word in outputText.split():
-        yield word + " "
-        time.sleep(0.05)
+response_body = json.loads(response['body'].read())
+outputText = response_body["results"][0]['outputText']
 
-
-st.title("Simple chat")
-
-# Initialize chat history
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-
-# Display chat messages from history on app rerun
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
-
-# Accept user input
-if prompt := st.chat_input("Let's create a movie description:"):
-    # Add user message to chat history
-    st.session_state.messages.append({"role": "user", "content": "Let me create the script for you about: " + prompt})
-    # Display user message in chat message container
-    with st.chat_message("user"):
-        st.markdown(prompt)
-
-    # Display assistant response in chat message container
-    with st.chat_message("assistant"):
-        response = st.write_stream(response_generator(prompt))
-    # Add assistant response to chat history
-    st.session_state.messages.append({"role": "assistant", "content": response})
+print(outputText)
+print("Done!")
