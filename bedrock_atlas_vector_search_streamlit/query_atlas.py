@@ -71,6 +71,8 @@ collection = db["movies"]
 # query_string = "traveling stars manual"
 query_string = "traveling romantic story"
 
+print("Searching for: " + query_string)
+
 res = mdb_query(client, query_string, 5)
 
 print("finished search...")
