@@ -75,26 +75,4 @@ res = mdb_query(client, query_string, 5)
 
 print("finished search...")
 
-bedrock = boto3.client('bedrock-runtime')
-
-prompt = f"""Human: Create a mashup script based on the descriptions below.  Create a single paragraph description.
-{res} 
-\n\nBot: Let me check create the script for you...
-"""
-print(f"constructed prompt: {prompt}")
-
-body = json.dumps({
-  "inputText": prompt,
-})
-
-# invoke titan model
-response = bedrock.invoke_model(
-  modelId="amazon.titan-text-express-v1",
-  body=body
-)
-
-response_body = json.loads(response['body'].read())
-outputText = response_body["results"][0]['outputText']
-
-print(outputText)
 print("Done!")
