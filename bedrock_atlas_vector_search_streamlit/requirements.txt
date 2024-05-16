@@ -1,0 +1,6 @@
+boto3==1.34.107
+botocore==1.34.107
+langchain-community==0.0.38
+langchain-core==0.1.52
+pymongo==4.7.2
+streamlit==1.34.0
