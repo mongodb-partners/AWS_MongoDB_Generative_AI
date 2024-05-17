@@ -2,7 +2,7 @@ import boto3
 import os
 import pymongo
 from utils import bedrock
-from langchain.embeddings import BedrockEmbeddings
+from langchain_community.embeddings import BedrockEmbeddings
 from utils import aws_utils
 
 # defind the bedrock client
