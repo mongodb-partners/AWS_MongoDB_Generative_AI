@@ -1,9 +1,8 @@
-# AWS_MongoDB_Generative_AI
-AWS_MongoDB_Generative_AI
----
-title: "Module 1: Building Generative AI application MongoDB Atlas, Bedrock, Langchain, and Streamlit"
-weight: 2000
----
+# Building Generative AI application MongoDB Atlas, Bedrock, Langchain, and Streamlit
+
+
+## Reference Architecture
+![Reference Architecture](images/Reference_Architecture.png)
 
 ## Creating a Secret in Secrets Manager
 * You can skip this section and create the secret via CLI in the next section
@@ -29,20 +28,20 @@ weight: 2000
 * Open Cloud9 Environment
 > ![Open Your environment](images/open_environment.png)
 * If you skipped secret creation in the previous section, run the following command to create the secret.  Make sure to provide your own user ID/password/cluster.
-:::code{showCopyAction=true showLineNumbers=true language=bash}
+```
 aws secretsmanager create-secret --name workshop/atlas_secret  --secret-string 'mongodb+srv://<your_user>:<your_password>@<your_cluster_dns>/?retryWrites=true&w=majority'
-:::
+```
 * Clone the repo
-::::code{showCopyAction=true}
+```
 git clone https://github.com/mongodb-partners/AWS_MongoDB_Generative_AI.git
 cd AWS_MongoDB_Generative_AI/bedrock_atlas_vector_search_streamlit/
-::::
+```
 * Install Python Dependencies
-::::code{showCopyAction=true}
+```
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-::::
+```
 
 ## Load MongoDB Atlas Sample Dataset
 * In MongoDB Atlas Console, from your Cluster menu select Load Sample Dataset
@@ -54,7 +53,7 @@ pip install -r requirements.txt
 
 * Select `movies` collection from `sample_mflix` database and copy and paste the JSON snippet below.
 
-::::code{showCopyAction=true}
+```
   {
   "fields": [
     {
@@ -65,7 +64,7 @@ pip install -r requirements.txt
     }
   ]
 }
-::::
+```
 
 * Select Next
 > ![Search Index Confirm](images/search_index_confirm.png)
@@ -92,9 +91,9 @@ pip install -r requirements.txt
 ## Create Embeddings
 * Run the following code in Cloud9 terminal:
 > ![Create Embeddings](images/run_create_embeddings.png)
-::::code{showCopyAction=true}
+```
 python create_embeddings.py
-::::
+```
 * Wait for the program to finish
 > ![Done Creating Embeddings](images/done_creating.png)
 
@@ -103,16 +102,16 @@ python create_embeddings.py
 
 ## Run Search to verify
 * In terminal run the following command to perform vector search
-::::code{showCopyAction=true}
+```
  python query_atlas.py
-::::
+```
 * Verify that program returns search results:
 > ![Search Results](images/search_results.png)
 
 * Next, we run the program that adds a generative feature.  
-::::code{showCopyAction=true}
+```
  python llm_atlas.py
-::::
+```
 * Based on the retrieved description, we are now generating a description for a new movie. 
 >![New Description](images/new_description.png)
 
@@ -127,9 +126,9 @@ python create_embeddings.py
 >![New Rule](images/new_rule.png)
 
 * Navigate to back to Cloud9 and run Streamlit app to create chatbot using the command below
-::::code{showCopyAction=true}
+```
 streamlit run app.py
-::::
+```
 > ![Streamlit App](images/streamlit_app.png)
 
 * Open the external URL in a separate browser tab. You should see the app loaded
