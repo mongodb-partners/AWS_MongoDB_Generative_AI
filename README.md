@@ -1,6 +1,5 @@
 # Building Generative AI application MongoDB Atlas, Bedrock, Langchain, and Streamlit
 
-
 ## Reference Architecture
 ![Reference Architecture](images/Reference_Architecture.png)
 
