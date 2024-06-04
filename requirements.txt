@@ -1,0 +1,4 @@
+boto3
+pymongo 
+streamlit
+langchain
