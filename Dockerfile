@@ -5,8 +5,11 @@ WORKDIR /usr/src/app
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
-COPY ./utils ./utils
+
+
+    COPY ./bedrock_atlas_vector_search_streamlit/app.py  ./app.py
+    COPY ./bedrock_atlas_vector_search_streamlit/utils ./utils
+
 
 CMD [ "streamlit", "run", "app.py" ]
 

@@ -20,12 +20,13 @@
 * Confirm the secret is created by observing it listed on the page.  Note: you might need hit refresh button to reload the secrets.
 > ![Confirm Secret](images/list_secret.png)
 
-## Cloud9
-* Navigate to Cloud9
-> ![Cloud9 Console](images/cloud9_console.png)
 
-* Open Cloud9 Environment
-> ![Open Your environment](images/open_environment.png)
+
+* Run the cloudshell
+
+![CloudShell](images/cloudshell.png)
+
+
 * If you skipped secret creation in the previous section, run the following command to create the secret.  Make sure to provide your own user ID/password/cluster.
 ```
 aws secretsmanager create-secret --name workshop/atlas_secret  --secret-string 'mongodb+srv://<your_user>:<your_password>@<your_cluster_dns>/?retryWrites=true&w=majority'
@@ -34,12 +35,6 @@ aws secretsmanager create-secret --name workshop/atlas_secret  --secret-string '
 ```
 git clone https://github.com/mongodb-partners/AWS_MongoDB_Generative_AI.git
 cd AWS_MongoDB_Generative_AI/bedrock_atlas_vector_search_streamlit/
-```
-* Install Python Dependencies
-```
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
 ```
 
 ## Load MongoDB Atlas Sample Dataset
@@ -87,14 +82,19 @@ pip install -r requirements.txt
 * Observe Access status to be Access Granted
 > ![Access Granted](images/access_granted.png)
 
+
+
+
 ## Create Embeddings
-* Run the following code in Cloud9 terminal:
-> ![Create Embeddings](images/run_create_embeddings.png)
+
+
+
+* Run the following code in terminal and wait for the program to finish:
+
 ```
 python create_embeddings.py
 ```
-* Wait for the program to finish
-> ![Done Creating Embeddings](images/done_creating.png)
+> ![Create Embeddings](images/run_create_embeddings1.png)\
 
 * Now observe the vector containing embeddings created in MongoDB Atlas.  Note: because we are not updating the full dataset you might need to filter the records by supplying this filter expression: `{"eg_vector":{"$exists": true}}`
 > ![Vector in Atlas](images/vector_in_atlas.png)
@@ -105,26 +105,54 @@ python create_embeddings.py
  python query_atlas.py
 ```
 * Verify that program returns search results:
-> ![Search Results](images/search_results.png)
+> ![Search Results](images/search_results1.png)
+
 
 * Next, we run the program that adds a generative feature.  
 ```
  python llm_atlas.py
 ```
 * Based on the retrieved description, we are now generating a description for a new movie. 
->![New Description](images/new_description.png)
+>![New Description](images/new_description1.png)
+
+
 
 ## Run Streamlit app
-* Before we can run the streamlit app, we need to open a port on the underlying Cloud9 instance.
-* Navigate to EC2|Running Instances|Security and click on the security group associated with the instance
-> ![Instance Details](images/instance_details.png)
-* Edit the security group to add inbound rule for port `8501`
->![Security Group](images/security_group.png)
-* Add a new rule and Save
+* Before we can run the streamlit app, we need install ECS Copilot CLI by running the following commands
 
->![New Rule](images/new_rule.png)
+```
+ sudo curl -Lo /usr/local/bin/copilot https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux    && sudo chmod +x /usr/local/bin/copilot    && copilot --help
+```
+![ECS Copilot](images/copilot.png)
 
-* Navigate to back to Cloud9 and run Streamlit app to create chatbot using the command below
+* Install the Application and Environment using ECS copilot
+
+```
+copilot init
+```
+
+* Select the Load Balanced Web Services
+![alt text](images/selectLoadbalancewebservices.png)
+
+
+* Name the service 
+![alt text](images/giveservicename.png)
+
+* Enter the custom path for Dockerfile 
+![alt text](images/dockerfilepath.png)
+
+* Give the path for the Dockerfile
+![alt text](images/dockerfile.png)
+
+* Give yes to "Would you like to deploy an environment?"
+![alt text](images/environmentselection.png)
+
+* Give a name to the environment
+![alt text](images/environmentname.png)
+
+
+
+* Run Streamlit app to create chatbot using the command below
 ```
 streamlit run app.py
 ```
