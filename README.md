@@ -1,5 +1,4 @@
-# Building Generative AI application MongoDB Atlas, Bedrock, Langchain, and Streamlit
-
+# Building Generative AI application with MongoDB Atlas, Amazon Bedrock, Langchain, and Streamlit
 
 Welcome to our repository, showcasing a reference architecture for building a production-ready Generative AI application. Designed with startups in mind, this architecture leverages:
 
@@ -26,8 +25,9 @@ Welcome to our repository, showcasing a reference architecture for building a pr
 ### Load MongoDB Atlas Sample Dataset
 * In MongoDB Atlas Console, from your Cluster menu select Load Sample Dataset
 >![Load Sample](images/load_sample.png)
+
 ### Vector Search Index Creation
-> * Navigate Data Services|Your Cluster|Brows Collections|Atlas Search
+* Navigate to Data Services > Your Cluster > Browse Collections > Atlas Search
 > ![Create Index Button](images/create_index_button.png)
 
 
@@ -90,11 +90,11 @@ Welcome to our repository, showcasing a reference architecture for building a pr
 ### Setup EC2 Instance
 * Start an EC2 Instance
 
-![EC2 Instance](images/ec2.png)
+> ![EC2 Instance](images/ec2.png)
 
 * Connect to the EC2 Instance
 
-![EC2 Connection](images/ec2_connection.png)
+> ![EC2 Connection](images/ec2_connection.png)
 
 * Install Git and Docker 
 
@@ -139,7 +139,7 @@ python ./bedrock_atlas_vector_search_streamlit/create_embeddings.py
 ```
 
 
->![Create Embeddings](images/run_create_embeddings.png)
+> ![Create Embeddings](images/run_create_embeddings.png)
 
 * Now observe the vector containing embeddings created in MongoDB Atlas.  Note: because we are not updating the full dataset you might need to filter the records by supplying this filter expression: `{"eg_vector":{"$exists": true}}`
 > ![Vector in Atlas](images/vector_in_atlas.png)
@@ -151,7 +151,7 @@ python ./bedrock_atlas_vector_search_streamlit/create_embeddings.py
 ```
 * Verify that program returns search results:
 
->![Search Results](images/search_results.png)
+> ![Search Results](images/search_results.png)
 
 
 * Next, we run the program that adds a generative feature.  
@@ -161,7 +161,7 @@ python ./bedrock_atlas_vector_search_streamlit/create_embeddings.py
 * Based on the retrieved description, we are now generating a description for a new movie. 
 
 
->![New Description](images/new_description.png)
+> ![New Description](images/new_description.png)
 
 
 
@@ -171,7 +171,7 @@ python ./bedrock_atlas_vector_search_streamlit/create_embeddings.py
 ```
  sudo curl -Lo /usr/local/bin/copilot https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux    && sudo chmod +x /usr/local/bin/copilot    && copilot --help
 ```
-![ECS Copilot](images/copilot.png)
+> ![ECS Copilot](images/copilot.png)
 
 * Install the Application and Environment using ECS copilot
 
@@ -181,38 +181,38 @@ copilot init
 
 * Select the Application name : ```atlasgenai```
 
-![Application Name](images/copilot_application_name.png)
+> ![Application Name](images/copilot_application_name.png)
 
 
 * Select the Load Balanced Web Services 
 
 
-![Load Balancer](images/selectLoadbalancewebservices.png)
+> ![Load Balancer](images/selectLoadbalancewebservices.png)
 
 
 
 * Name the service  must be ```frontend```as the manifest files is configured for frontend.
-![Service Name](images/giveservicename.png)
+> ![Service Name](images/giveservicename.png)
 
 
 * Enter the custom path for Dockerfile 
-![alt text](images/dockerfilepath.png)
+> ![Dockerfile ](images/dockerfilepath.png)
 
 
 * Give yes to "Would you like to deploy an environment?"
-![alt text](images/environmentselection.png)
+> ![Environment Selection](images/environmentselection.png)
 
 * Name of the environment must be ```dev```, as the manifest files is configured for dev.
-![alt text](images/environmentname.png)
+> ![Environment Name](images/environmentname.png)
 
 
 * Ensure the environment is setup successfully
 
-![alt text](images/env_success.png)
+> ![alt text](images/env_success.png)
 
 * Then the copilot execute the docker file, pushes the image to the repository and creates the infrastructure. Ensure all the mentioned are created successfully.
 
-![Docker_ECS](images/docker_ecr_completion.png)
+> ![Docker_ECS](images/docker_ecr_completion.png)
 
 > ![Completion](images/completion.png)
 
