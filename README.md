@@ -14,7 +14,7 @@ Welcome to our repository, showcasing a reference architecture for building a pr
 
 ## Prerequisites
 * MongoDB Atlas Cluster and Database - [Deploy a free MongoDB Atlas Cluster](https://www.mongodb.com/docs/atlas/getting-started/)
-    - Optional: For access to free Atlas credits, apply to the [MongoDB startup program](https://www.mongodb.com/lp/solutions/startups/partners?utm_campaign=startups-partners&utm_source=aws_jlp&utm_medium=community&utm_content=startups#form-container).     
+    - Optional: For access to free Atlas credits, apply to the [MongoDB startup program](https://www.mongodb.com/lp/solutions/startups/partners?utm_campaign=startups-partners&utm_source=aws_jlp&utm_medium=community&utm_content=startups#form-container)
 * AWS Account  [AWS Free Tier](https://aws.amazon.com/free/)
 
 
