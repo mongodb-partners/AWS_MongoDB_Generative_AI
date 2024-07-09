@@ -3,7 +3,7 @@
 Welcome to our repository, showcasing a reference architecture for building a production-ready Generative AI application. Designed with startups in mind, this architecture leverages:
 
 - **MongoDB Atlas**: A scalable, cloud-based database for efficient storage and retrieval of unstructured data, crucial for training and running AI models.
-- **AWS Bedrock**: A managed service for building, training, and deploying machine learning models at scale, streamlining generative AI workflows.
+- **Amazon Bedrock**: A managed service for building, training, and deploying machine learning models at scale, streamlining generative AI workflows.
 - **Langchain**: A tool for seamless integration of complex natural language processing pipelines, enhancing the application's ability to understand and generate human-like text.
 - **Streamlit**: A framework for rapid development of interactive, real-time data-driven web applications.
 
@@ -15,6 +15,7 @@ Welcome to our repository, showcasing a reference architecture for building a pr
 ## Prerequisites
 * MongoDB Atlas Cluster and Database - [Deploy a free MongoDB Atlas Cluster](https://www.mongodb.com/docs/atlas/getting-started/)
 * AWS Account  [AWS Free Tier](https://aws.amazon.com/free/)
+* Optional: For access to free Atlas credits, apply to the [MongoDB startup program](https://www.mongodb.com/lp/solutions/startups/partners?utm_campaign=startups-partners&utm_source=aws_jlp&utm_medium=community&utm_content=startups#form-container).
 
 
 ## Reference Architecture
