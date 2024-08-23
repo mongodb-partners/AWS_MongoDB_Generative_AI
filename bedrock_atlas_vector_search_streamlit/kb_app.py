@@ -27,7 +27,7 @@ def response_generator(query_string):
 
     print("finished search...")
 
-    bedrock = boto3.client('bedrock-runtime')
+    bedrock = boto3.client('bedrock-runtime', region_name="us-west-2")
 
     prompt = f"""Human: You are expert on best practices for managing MongoDB clusters.  
     {res} 
