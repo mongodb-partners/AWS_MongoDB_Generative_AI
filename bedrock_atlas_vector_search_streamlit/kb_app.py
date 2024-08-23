@@ -6,8 +6,6 @@ import json
 from langchain_aws import AmazonKnowledgeBasesRetriever
 import os
 
-boto3_bedrock = bedrock.get_bedrock_client()
-
 
 print("started...")
 
@@ -25,7 +23,7 @@ retriever = AmazonKnowledgeBasesRetriever(
 
 # Streamed response emulator
 def response_generator(query_string):
-    res = retriever.invoke(query_string)
+    res = retriever.invoke(query_string, region_name="us-west-2")
 
     print("finished search...")
 
@@ -68,7 +66,7 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 # Accept user input
-if prompt := st.chat_input("Let's create a movie description:"):
+if prompt := st.chat_input("Type your query:"):
     # Add user message to chat history
     st.session_state.messages.append({"role": "user", "content": "Let me create the script for you about: " + prompt})
     # Display user message in chat message container
