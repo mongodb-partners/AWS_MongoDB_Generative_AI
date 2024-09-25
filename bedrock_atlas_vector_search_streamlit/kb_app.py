@@ -11,7 +11,7 @@ print("started...")
 
 # initialize AmazonKnowledgeBaseRetriever
 retriever = AmazonKnowledgeBasesRetriever(
-    knowledge_base_id=os.environ.get("BEBROCK_KB_ID"),
+    knowledge_base_id=os.environ.get("BEDROCK_KB_ID"),
     region_name="us-west-2",
     retrieval_config={
         "vectorSearchConfiguration": {
